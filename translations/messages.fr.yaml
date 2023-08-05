@@ -1,0 +1,27 @@
+album: album
+albums: albums
+album.detail.page.title: détail de l'album
+album.edit.page.title: éditer un album
+album.index.page.title: liste des albums
+album.new.action.label: créer un album
+album.new.page.title: créer un album
+album.type: type d'album
+album.type.detail.page.title: détail du type d'album
+album.type.edit.page.title: éditer un type d'album
+album.type.index.page.title: liste des types d'albums
+album.type.new.action.label: créer un type d'album
+album.type.new.page.title: créer un type d'album
+backend-title: tableau d'administration
+discography: discographie
+home: accueil
+name: nom
+song: chanson
+songs: chansons
+song.new.action.label: créer une chanson
+song.new.page.title: créer une chanson
+song.detail.page.title: détail de la chanson
+song.index.page.title: liste des chansons
+song.edit.page.title: éditer une chanson
+releasedYear: année de sortie
+type: type
+title: titre
