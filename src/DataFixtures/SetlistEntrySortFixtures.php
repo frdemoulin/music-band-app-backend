@@ -3,8 +3,8 @@
 namespace App\DataFixtures;
 
 use App\Entity\SetlistEntrySort;
-use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Persistence\ObjectManager;
 
 class SetlistEntrySortFixtures extends Fixture
 {
@@ -51,7 +51,7 @@ class SetlistEntrySortFixtures extends Fixture
                 default:
                     break;
             }
-            
+
             $manager->persist($setlistEntrySort);
         }
 

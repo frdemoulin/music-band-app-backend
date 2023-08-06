@@ -2,16 +2,16 @@
 
 namespace App\Entity;
 
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this username')]
@@ -163,12 +163,12 @@ class User implements UserInterface, \Stringable, PasswordAuthenticatedUserInter
 
     public function getFirstnameLastnameDescription(): ?string
     {
-        return mb_convert_case((string) $this->firstname, MB_CASE_TITLE, 'UTF-8') . ' ' . mb_strtoupper((string) $this->lastname, 'UTF-8');
+        return mb_convert_case((string) $this->firstname, \MB_CASE_TITLE, 'UTF-8').' '.mb_strtoupper((string) $this->lastname, 'UTF-8');
     }
 
     public function getLastnameFirstnameDescription(): ?string
     {
-        return mb_strtoupper((string) $this->lastname, 'UTF-8') . ' ' . mb_convert_case((string) $this->firstname, MB_CASE_TITLE, 'UTF-8');
+        return mb_strtoupper((string) $this->lastname, 'UTF-8').' '.mb_convert_case((string) $this->firstname, \MB_CASE_TITLE, 'UTF-8');
     }
 
     public function getNickname(): ?string

@@ -2,10 +2,10 @@
 
 namespace App\Repository;
 
-use App\Entity\User;
 use App\Entity\BankingOperation;
-use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method BankingOperation|null find($id, $lockMode = null, $lockVersion = null)
@@ -39,9 +39,10 @@ class BankingOperationRepository extends ServiceEntityRepository
     }
 
     /**
-     * Retourne les opérations bancaires correspondant aux frais kilométriques pour une année et un utilisateur (optionnel) donnés
+     * Retourne les opérations bancaires correspondant aux frais kilométriques pour une année et un utilisateur (optionnel) donnés.
+     *
      * @return BankingOperation[] Returns an array of BankingOperation objects
-    */
+     */
     public function findMileageExpendituresForAGivenYearAndAGivenOptionalUser(int $year, User $user = null)
     {
         return $this->createQueryBuilder('bo')
@@ -55,16 +56,15 @@ class BankingOperationRepository extends ServiceEntityRepository
             ->andWhere('bc.contact_lastname LIKE :userLastname')
             ->setParameter('year', $year)
             ->setParameter('associationCorporationName', 'Citizens of Muse')
-            ->setParameter('userFirstname', '%' . $user->getFirstname() .'%')
-            ->setParameter('userLastname', '%' . $user->getLastname() .'%')
+            ->setParameter('userFirstname', '%'.$user->getFirstname().'%')
+            ->setParameter('userLastname', '%'.$user->getLastname().'%')
             ->getQuery()
             ->getResult()
         ;
     }
 
     /**
-     * Retourne le montant total des indemnités kilométriques versées à la date du jour pour une année donnée
-     * @return int|null
+     * Retourne le montant total des indemnités kilométriques versées à la date du jour pour une année donnée.
      */
     public function findTotalMileageExpendituresForAGivenYearTillTheCurrentDay(int $year): ?int
     {
@@ -88,8 +88,7 @@ class BankingOperationRepository extends ServiceEntityRepository
     }
 
     /**
-     * Retourne le montant total des indemnités kilométriques versées à la date du jour pour un utilisateur et une année donnés
-     * @return float|null
+     * Retourne le montant total des indemnités kilométriques versées à la date du jour pour un utilisateur et une année donnés.
      */
     // TOOD: à vérifier
     public function findTotalMileageExpendituresForAGivenYearTillTheCurrentDayAndAGivenUser(int $year, User $user): ?float
@@ -120,9 +119,8 @@ class BankingOperationRepository extends ServiceEntityRepository
     }
 
     /**
-     * Retourne les années fiscales pour lesquelles des opérations bancaires ont été renseignées
-     * @return array|null
-    */
+     * Retourne les années fiscales pour lesquelles des opérations bancaires ont été renseignées.
+     */
     public function getBankingOperationYears(): ?array
     {
         return $this->createQueryBuilder('bo')
@@ -136,10 +134,10 @@ class BankingOperationRepository extends ServiceEntityRepository
     }
 
     /**
-     * Retourne le nombre total d'encaissements pour une année fiscale (optionnelle) donnée
+     * Retourne le nombre total d'encaissements pour une année fiscale (optionnelle) donnée.
+     *
      * @param ?int $fiscalYear
-     * @return int|null
-    */
+     */
     public function countTotalRevenues(int $fiscalYear = null): ?int
     {
         $qb = $this->createQueryBuilder('bo')
@@ -162,10 +160,10 @@ class BankingOperationRepository extends ServiceEntityRepository
     }
 
     /**
-     * Retourne le nombre total de dépenses pour une année fiscale (optionnelle) donnée
+     * Retourne le nombre total de dépenses pour une année fiscale (optionnelle) donnée.
+     *
      * @param ?int $fiscalYear
-     * @return int|null
-    */
+     */
     public function countTotalExpenditures(int $fiscalYear = null): ?int
     {
         $qb = $this->createQueryBuilder('bo')
@@ -188,10 +186,10 @@ class BankingOperationRepository extends ServiceEntityRepository
     }
 
     /**
-     * Retourne le montant total des encaissements pour une année fiscale (optionnelle) donnée
+     * Retourne le montant total des encaissements pour une année fiscale (optionnelle) donnée.
+     *
      * @param ?int $fiscalYear
-     * @return int|null
-    */
+     */
     public function getTotalRevenuesAmount(int $fiscalYear = null): ?int
     {
         $qb = $this->createQueryBuilder('bo')
@@ -214,10 +212,10 @@ class BankingOperationRepository extends ServiceEntityRepository
     }
 
     /**
-     * Retourne le montant total des dépenses pour une année fiscale (optionnelle) donnée
+     * Retourne le montant total des dépenses pour une année fiscale (optionnelle) donnée.
+     *
      * @param ?int $fiscalYear
-     * @return int|null
-    */
+     */
     public function getTotalExpendituresAmount(int $fiscalYear = null): ?int
     {
         $qb = $this->createQueryBuilder('bo')

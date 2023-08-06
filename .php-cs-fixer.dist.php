@@ -31,7 +31,7 @@ return (new PhpCsFixer\Config())
         'no_php4_constructor' => true,
         'no_unreachable_default_argument_value' => true,
         'no_useless_else' => true,
-        'no_useless_return' => true,
+        // 'no_useless_return' => true,
         'php_unit_strict' => true,
         'phpdoc_order' => true,
         'strict_comparison' => true,

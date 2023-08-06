@@ -4,8 +4,8 @@ namespace App\DataFixtures;
 
 use App\Entity\Album;
 use App\Entity\AlbumSort;
-use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Persistence\ObjectManager;
 
 class AlbumFixtures extends Fixture
 {
@@ -30,7 +30,7 @@ class AlbumFixtures extends Fixture
                 'title' => 'Muse EP',
                 'album_sort_name' => 'EP',
                 'released_year' => '1998',
-            ]
+            ],
         ];
 
         foreach ($albumDatas as $albumData) {
@@ -40,7 +40,7 @@ class AlbumFixtures extends Fixture
             $album->setAlbumSort($albumSort)
                 ->setTitle($albumData['title'])
                 ->setReleasedYear($albumData['released_year']);
-            
+
             $manager->persist($albumSort);
             $manager->persist($album);
 
