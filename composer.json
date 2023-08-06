@@ -1,4 +1,6 @@
 {
+    "name": "frdemoulin/tribute-app-backend",
+    "description": "Tribute band application backend",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",
