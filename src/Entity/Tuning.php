@@ -32,6 +32,11 @@ class Tuning
         $this->songs = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return (string) $this->getDescription();
+    }
+
     /**
      * @return Collection|Song[]
      */

@@ -18,7 +18,7 @@ class SongFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 0; $i < 19; $i++) {
             $song = new Song();
 
-            $song->setTitle($faker->realText(25, 3))
+            $song->setTitle($faker->sentence($faker->numberBetween(1, 3)))
                 ->setDuration($faker->numberBetween(100, 600));
 
             switch ($i % 3) {

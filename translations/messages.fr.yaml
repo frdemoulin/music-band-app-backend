@@ -39,6 +39,8 @@ speech.new.page.title: créer une prise de parole
 speech.detail.page.title: détail de la prise de parole
 speech.index.page.title: liste des prises de parole
 speech.edit.page.title: éditer une prise de parole
+title: titre
+title.short: titre court
 tuning: accordage
 tunings: accordages
 tuning.new.action.label: créer un accordage
@@ -47,7 +49,6 @@ tuning.detail.page.title: détail de l'accordage
 tuning.index.page.title: liste des accordages
 tuning.edit.page.title: éditer un accordage
 type: type
-title: titre
 updated.at: dernière mise à jour
 user: utilisateur
 users: utilisateurs

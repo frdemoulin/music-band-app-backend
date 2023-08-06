@@ -28,7 +28,7 @@ class AlbumFixtures extends Fixture
             ],
             '2' => [
                 'title' => 'Muse EP',
-                'album_sort_name' => 'ep',
+                'album_sort_name' => 'EP',
                 'released_year' => '1998',
             ]
         ];
@@ -45,7 +45,7 @@ class AlbumFixtures extends Fixture
             $manager->persist($album);
 
             switch ($albumSort->getName()) {
-                case 'ep':
+                case 'EP':
                     $this->addReference(self::ALBUM_EP_REFERENCE, $album);
                     break;
                 case 'live':

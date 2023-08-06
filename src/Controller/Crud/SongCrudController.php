@@ -9,10 +9,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class SongCrudController extends AbstractCrudController
@@ -52,11 +52,11 @@ class SongCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            TextField::new('title'),
-            TextField::new('shortTitle'),
-            IntegerField::new('duration'),
-            ChoiceField::new('tuning'),
-            ChoiceField::new('album'),
+            TextField::new('title', GenericHelper::mb_ucfirst($this->translator->trans('title'))),
+            TextField::new('shortTitle', GenericHelper::mb_ucfirst($this->translator->trans('title.short'))),
+            IntegerField::new('duration', GenericHelper::mb_ucfirst($this->translator->trans('duration.in.seconds'))),
+            AssociationField::new('tuning', GenericHelper::mb_ucfirst($this->translator->trans('tuning')))->renderAsNativeWidget(),
+            AssociationField::new('album')->renderAsNativeWidget(),
             DateTimeField::new('createdAt', GenericHelper::mb_ucfirst($this->translator->trans('created.at')))->hideOnForm(),
             DateTimeField::new('updatedAt', GenericHelper::mb_ucfirst($this->translator->trans('updated.at')))->hideOnForm(),
         ];
