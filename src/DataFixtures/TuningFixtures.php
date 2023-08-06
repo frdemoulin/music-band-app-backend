@@ -3,8 +3,8 @@
 namespace App\DataFixtures;
 
 use App\Entity\Tuning;
-use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Persistence\ObjectManager;
 
 class TuningFixtures extends Fixture
 {
@@ -23,7 +23,7 @@ class TuningFixtures extends Fixture
             ],
             '2' => [
                 'description' => 'standard',
-            ]
+            ],
         ];
 
         foreach ($tuningDatas as $tuningData) {
@@ -43,7 +43,7 @@ class TuningFixtures extends Fixture
                 default:
                     break;
             }
-            
+
             $manager->persist($tuning);
         }
 

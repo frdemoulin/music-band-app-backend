@@ -2,10 +2,10 @@
 
 namespace App\DataFixtures;
 
-use Faker\Factory;
 use App\Entity\User;
-use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Persistence\ObjectManager;
+use Faker\Factory;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture
@@ -14,7 +14,7 @@ class UserFixtures extends Fixture
     public const USER_USER = 'user-user';
     public const USER_ADMIN_REFERENCE = 'user-admin';
     public const USER_ASSOCIATION_BUREAU_MEMBER_REFERENCE = 'user-association-bureau-member';
-    
+
     public function __construct(private UserPasswordHasherInterface $passwordHasher)
     {
         $this->passwordHasher = $passwordHasher;
@@ -64,7 +64,7 @@ class UserFixtures extends Fixture
             ->setEmail($faker->email())
             ->setPassword($hashedPassword)
             ->setRoles(['ROLE_ADMIN']);
-        
+
         $manager->persist($user);
 
         $this->addReference(self::USER_ADMIN_REFERENCE, $user);

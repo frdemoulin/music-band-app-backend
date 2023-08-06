@@ -47,7 +47,7 @@ class AlbumController extends AbstractController
     }
 
     #[Route(path: '/album/{id}', name: 'album_show', requirements: ['id' => '\d+'])]
-    public function show(Album $album, Request $request): \Symfony\Component\HttpFoundation\Response
+    public function show(Album $album, Request $request): Response
     {
         if ($request->isMethod('POST')) {
             $this->redirectToRoute('album_delete', [

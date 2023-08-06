@@ -3,12 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\User;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -58,9 +58,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
         return array_map('reset', $result);
     }
-    
+
     /**
-     * Retourne un utilisateur à partir de son email
+     * Retourne un utilisateur à partir de son email.
      *
      * @return User
      */
@@ -73,16 +73,16 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getOneOrNullResult()
         ;
     }
-    
+
     /**
-     * Retourne les utilisateurs ayant un rôle donné
+     * Retourne les utilisateurs ayant un rôle donné.
      *
      * @return User[] Returns an array of User objects
      */
     public function findByRole(string $role): ?array
     {
         return $this->createQueryBuilder('u')
-            ->andWhere("JSON_CONTAINS(u.roles, :certificates) = 1")
+            ->andWhere('JSON_CONTAINS(u.roles, :certificates) = 1')
             ->setParameter('certificates', $role)
             ->getQuery()
             ->getResult();

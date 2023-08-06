@@ -1,0 +1,125 @@
+name: CI
+on: [push, pull_request]
+env:
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+jobs:
+  php:
+    name: Symfony 6.3.3 (PHP ${{ matrix.php-version }})
+
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        php-version: ["8.1", "8.2"]
+    steps:
+      # —— Setup Github actions 🐙 —————————————————————————————————————————————
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # https://github.com/shivammathur/setup-php (community)
+      - name: "Setup PHP, extensions and composer with shivammathur/setup-php"
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          ini-values: memory_limit=512M
+          extensions: mbstring, xml, ctype, iconv, intl, pdo, pdo_mysql, dom, filter, gd, iconv, json, mbstring, pdo
+          tools: composer:v2.4
+
+      - name: Check PHP Version
+        run: php -v
+
+      ## —— Setup MySQL 🗃️ ————————————————————————————————————————————————
+      - uses: shogo82148/actions-setup-mysql@v1
+        with:
+          distribution: "mysql"
+          mysql-version: "8"
+          root-password: "root"
+
+      ## —— Check MySQL connection 🗃️ ————————————————————————————————————————————————
+      - name: Verify MySQL connection
+        env:
+          PORT: "3306"
+        run: |
+          while ! mysqladmin ping -h"127.0.0.1" -P"$PORT" --silent; do
+            sleep 1
+          done
+
+      # —— Composer 🧙‍️ —————————————————————————————————————————————————————————
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: "Set composer cache directory"
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: "Cache composer"
+        uses: actions/cache@v2.1.2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-${{ matrix.php-version }}-composer-${{ hashFiles('composer.lock') }}
+          restore-keys: ${{ runner.os }}-${{ matrix.php-version }}-composer-
+
+      - name: "Composer install"
+        run: composer install --no-interaction --no-progress
+
+      # —— Symfony 🎵 ——————————————————————————————————————————————————————————
+      - name: Symfony CLI
+        run: |
+          curl -sS https://get.symfony.com/cli/installer | bash
+          mv /home/runner/.symfony5/bin/symfony /usr/local/bin/symfony
+
+      - name: Check the Symfony console
+        run: |
+          symfony console -V
+          symfony console about
+
+      - name: Check if any dependencies are compromised
+        #if: always() && steps.install.outcome == 'success'
+        run: composer audit
+
+      ## —— Coding standards ✨ ————————————————————————————————————————————————
+      # PHP CS FIXER
+      - name: PHP-CS-Fixer
+        uses: docker://oskarstark/php-cs-fixer-ga
+        with:
+          args: --config=.php-cs-fixer.dist.php -vvv
+
+      ## —— Static analysis ✨ —————————————————————————————————————————————————
+      # PHP STAN
+      #- name: PHP Stan
+      # run: |
+      #   ./vendor/bin/simple-phpunit install
+      #   composer require phpstan/phpstan
+      #   composer require phpstan/extension-installer
+      #   composer config --no-plugins allow-plugins.phpstan/extension-installer true
+      #   composer require phpstan/phpstan-symfony
+      #   ./vendor/bin/phpstan analyse src --memory-limit 1G
+
+      - name: Lint YAML files
+        run: symfony console lint:yaml config --parse-tags
+
+      - name: Lint Twig templates
+        run: symfony console lint:twig templates --env=prod
+
+      - name: Lint Parameters and Services
+        run: symfony console lint:container --no-debug
+
+      - name: Lint Doctrine entities
+        run: symfony console doctrine:schema:validate --skip-sync -vvv --no-interaction
+
+      # ## —— Setup Panther 🐯 ———————————————————————————————————————————————————————————
+      # - name: Setup Panther
+      #   run: |
+      #     composer require --dev dbrekelmans/bdi
+      #     vendor/bin/bdi detect drivers
+
+      # ## —— Tests ✅ ———————————————————————————————————————————————————————————
+      # - name: Load fixtures
+      #   run: |
+      #     php bin/console --env=test doctrine:database:create
+      #     php bin/console --env=test doctrine:schema:create
+      #     php bin/console --env=test doctrine:fixtures:load --no-interaction
+      #   env:
+      #     DATABASE_URL: mysql://root:root@127.0.0.1:3306/test_absolution_setlist?serverVersion=mariadb-10.5.17
+      # - name: PHP Unit
+      #   run: PANTHER_NO_HEADLESS=0 ./vendor/bin/phpunit tests --testdox --debug

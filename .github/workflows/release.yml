@@ -1,0 +1,27 @@
+name: Semantic Release
+on:
+  [push, pull_request]
+env:
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18.12.0"
+      - name: Install dependencies
+        run: npm ci
+      - name: Setup Semantic Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          # NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm install -g semantic-release @semantic-release/git @semantic-release/changelog -D
+      - name: Release
+        run: npx semantic-release

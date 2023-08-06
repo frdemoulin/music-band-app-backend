@@ -3,11 +3,9 @@
 namespace App\DataFixtures;
 
 use App\Entity\Song;
-use App\DataFixtures\AlbumFixtures;
-use App\DataFixtures\TuningFixtures;
-use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Persistence\ObjectManager;
 
 class SongFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -15,7 +13,7 @@ class SongFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = \Faker\Factory::create();
 
-        for ($i = 0; $i < 19; $i++) {
+        for ($i = 0; $i < 19; ++$i) {
             $song = new Song();
 
             $song->setTitle($faker->sentence($faker->numberBetween(1, 3)))
