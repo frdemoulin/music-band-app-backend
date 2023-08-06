@@ -18,6 +18,8 @@ connection.log: journal des connexions
 connection.log.index.page.title: liste des connexions
 created.at: création
 discography: discographie
+duration: durée
+duration.in.seconds: durée (s)
 home: accueil
 login.at: date de connexion
 logout.at: date de déconnexion
@@ -30,6 +32,13 @@ song.new.page.title: créer une chanson
 song.detail.page.title: détail de la chanson
 song.index.page.title: liste des chansons
 song.edit.page.title: éditer une chanson
+speech: prise de parole
+speeches: prises de parole
+speech.new.action.label: créer une prise de parole
+speech.new.page.title: créer une prise de parole
+speech.detail.page.title: détail de la prise de parole
+speech.index.page.title: liste des prises de parole
+speech.edit.page.title: éditer une prise de parole
 tuning: accordage
 tunings: accordages
 tuning.new.action.label: créer un accordage

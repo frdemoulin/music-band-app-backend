@@ -4,6 +4,7 @@ namespace App\Controller\Dashboard;
 
 use App\Entity\Song;
 use App\Entity\Album;
+use App\Entity\Speech;
 use App\Entity\Tuning;
 use App\Entity\LogUser;
 use App\Entity\AlbumSort;
@@ -52,6 +53,11 @@ class DashboardController extends AbstractDashboardController
                 fn (Action $action) => $action
                     ->setCssClass('btn btn-success')
             )
+            // bouton de sauvegarde des modifications depuis la page PAGE_EDIT
+            ->update(Crud::PAGE_EDIT, Action::SAVE_AND_RETURN,
+                fn (Action $action) => $action
+                    ->setCssClass('btn btn-warning')
+            )
         ;
     }
 
@@ -81,6 +87,9 @@ class DashboardController extends AbstractDashboardController
         // Paramétrage
         yield MenuItem::section($this->translator->trans('configuration'));
         yield MenuItem::linkToCrud(GenericHelper::mb_ucfirst($this->translator->trans('tunings')), 'fa-solid fa-bars-progress', Tuning::class);
+        // Setlists
+        yield MenuItem::section($this->translator->trans('setlist'));
+        yield MenuItem::linkToCrud(GenericHelper::mb_ucfirst($this->translator->trans('speeches')), 'fa-regular fa-comment', Speech::class);
         // Utilisateurs
         yield MenuItem::section($this->translator->trans('users'));
         yield MenuItem::linkToCrud(GenericHelper::mb_ucfirst($this->translator->trans('connection.log')), 'fa-solid fa-right-to-bracket', LogUser::class);        
