@@ -14,7 +14,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this username')]
-class User implements UserInterface
+class User implements UserInterface, \Stringable
 {
     use TimestampableEntity;
 
@@ -25,45 +25,47 @@ class User implements UserInterface
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     #[Assert\NotBlank(message: 'Veuillez renseigner une adresse email')]
-    private $email;
+    private ?string $email = null;
 
     #[ORM\Column(type: 'json')]
-    private $roles = [];
+    private array $roles = [];
 
-    /**
-     * @var string The hashed password
-     */
     #[ORM\Column(type: 'string')]
-    private $password;
+    private ?string $password = null;
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Assert\NotBlank(message: 'Veuillez renseigner un prénom')]
-    private $firstname;
+    private ?string $firstname = null;
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Assert\NotBlank(message: 'Veuillez renseigner un nom')]
-    private $lastname;
+    private ?string $lastname = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $nickname;
+    private ?string $nickname = null;
 
     #[ORM\OneToMany(targetEntity: Setlist::class, mappedBy: 'createdBy')]
-    private $setlistsCreatedBy;
+    private Collection $setlistsCreatedBy;
 
     #[ORM\OneToMany(targetEntity: Setlist::class, mappedBy: 'lastModifiedBy')]
-    private $setlistsLastModifiedBy;
+    private Collection $setlistsLastModifiedBy;
 
     #[ORM\OneToMany(targetEntity: LogUser::class, mappedBy: 'user', cascade: ['remove'])]
-    private $logUsers;
+    private Collection $logUsers;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $sessionId;
+    private ?string $sessionId = null;
 
     public function __construct()
     {
         $this->setlistsCreatedBy = new ArrayCollection();
         $this->setlistsLastModifiedBy = new ArrayCollection();
         $this->logUsers = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return (string) $this->getFirstnameLastnameDescription();
     }
 
     public function getId(): ?int
@@ -156,6 +158,16 @@ class User implements UserInterface
         $this->lastname = $lastname;
 
         return $this;
+    }
+
+    public function getFirstnameLastnameDescription(): ?string
+    {
+        return mb_convert_case((string) $this->firstname, MB_CASE_TITLE, 'UTF-8') . ' ' . mb_strtoupper((string) $this->lastname, 'UTF-8');
+    }
+
+    public function getLastnameFirstnameDescription(): ?string
+    {
+        return mb_strtoupper((string) $this->lastname, 'UTF-8') . ' ' . mb_convert_case((string) $this->firstname, MB_CASE_TITLE, 'UTF-8');
     }
 
     public function getNickname(): ?string

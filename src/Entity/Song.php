@@ -22,24 +22,24 @@ class Song
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Assert\NotBlank(message: 'Veuillez renseigner un titre')]
-    private $title;
+    private ?string $title = null;
 
     #[ORM\Column(type: 'integer')]
     #[Assert\NotBlank(message: 'Veuillez renseigner une durée')]
     #[Assert\NotNull(message: 'Veuillez renseigner une durée')]
-    private $duration;
+    private ?int $duration = null;
 
     #[ORM\ManyToOne(targetEntity: Tuning::class, inversedBy: 'songs')]
-    private $tuning;
+    private ?\App\Entity\Tuning $tuning = null;
 
     #[ORM\ManyToOne(targetEntity: Album::class, inversedBy: 'songs')]
-    private $album;
+    private ?\App\Entity\Album $album = null;
 
     #[ORM\OneToMany(targetEntity: Cover::class, mappedBy: 'song')]
-    private $covers;
+    private \Doctrine\Common\Collections\Collection|array $covers;
 
     #[ORM\Column(type: 'string', length: 100, nullable: true)]
-    private $shortTitle;
+    private ?string $shortTitle = null;
 
     public function __construct()
     {

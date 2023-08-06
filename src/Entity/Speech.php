@@ -18,10 +18,10 @@ class Speech
     private $id;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $description;
+    private ?string $description = null;
 
     #[ORM\Column(type: 'integer')]
-    private $duration;
+    private ?int $duration = null;
 
     public function getId(): ?int
     {

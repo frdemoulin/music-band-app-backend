@@ -23,29 +23,29 @@ class Cover
     #[ORM\ManyToOne(targetEntity: Song::class, inversedBy: 'covers')]
     #[ORM\JoinColumn(nullable: false)]
     #[Assert\NotBlank(message: 'Veuillez choisir une chanson')]
-    private $song;
+    private ?\App\Entity\Song $song = null;
 
     #[ORM\ManyToOne(targetEntity: IntroOutro::class, inversedBy: 'coversIntro')]
-    private $intro;
+    private ?\App\Entity\IntroOutro $intro = null;
 
     #[ORM\ManyToOne(targetEntity: IntroOutro::class, inversedBy: 'coversOutro')]
-    private $outro;
+    private ?\App\Entity\IntroOutro $outro = null;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    private $duration;
+    private ?int $duration = null;
 
     #[ORM\OneToMany(targetEntity: BackingTrack::class, mappedBy: 'cover', orphanRemoval: true, cascade: ['persist'], fetch: 'EAGER')]
-    private $backingTracks;
+    private Collection $backingTracks;
 
     #[ORM\OneToMany(targetEntity: BlockHasCovers::class, mappedBy: 'cover', orphanRemoval: true)]
-    private $blockHasCovers;
+    private Collection $blockHasCovers;
 
     #[ORM\OneToMany(targetEntity: SetlistEntry::class, mappedBy: 'cover')]
-    private $setlistEntries;
+    private Collection $setlistEntries;
 
     #[ORM\OneToOne(targetEntity: Ending::class, cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(onDelete: 'SET NULL')]
-    private $ending;
+    private ?\App\Entity\Ending $ending = null;
 
     public function __construct()
     {
@@ -72,6 +72,7 @@ class Cover
      */
     public function getCoverIntroOutroDescription(bool $brackets = true, string $format = 'full'): ?string
     {
+        $stringToReturn = null;
         if (null !== $this->getIntro() && null === $this->getOutro()) { // intro seule
             if ($brackets) {
                 if (isset($format) && 'full' === $format) {

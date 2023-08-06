@@ -18,7 +18,7 @@ class SetlistEntrySort
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $type;
+    private ?string $type = null;
 
     public function getId(): ?int
     {

@@ -3,14 +3,17 @@
 namespace App\Controller\Crud;
 
 use App\Entity\Album;
+use App\Service\GenericHelper;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class AlbumCrudController extends AbstractCrudController
 {
@@ -29,19 +32,19 @@ class AlbumCrudController extends AbstractCrudController
         return $crud
             // ->setEntityLabelInPlural(function (?Album $album, ?string $pageName) {
             //     if (Crud::PAGE_INDEX === $pageName) {
-            //         return ucfirst($this->translator->trans('album.index.label'));
+            //         return GenericHelper::mb_ucfirst($this->translator->trans('album.index.label'));
             //     } elseif ('detail' === $pageName) {
-            //         return ucfirst($this->translator->trans('album.detail.label'));
+            //         return GenericHelper::mb_ucfirst($this->translator->trans('album.detail.label'));
             //     } elseif (Crud::PAGE_NEW === $pageName) {
-            //         return ucfirst($this->translator->trans('album.new.label'));
+            //         return GenericHelper::mb_ucfirst($this->translator->trans('album.new.label'));
             //     } elseif ('edit' === $pageName) {
-            //         return ucfirst($this->translator->trans('album.edit.label'));
+            //         return GenericHelper::mb_ucfirst($this->translator->trans('album.edit.label'));
             //     }
             // })
-            ->setPageTitle(Crud::PAGE_INDEX, ucfirst($this->translator->trans('album.index.page.title')))
-            ->setPageTitle(Crud::PAGE_DETAIL, ucfirst($this->translator->trans('album.detail.page.title')))
-            ->setPageTitle(Crud::PAGE_NEW, ucfirst($this->translator->trans('album.new.page.title')))
-            ->setPageTitle(Crud::PAGE_EDIT, ucfirst($this->translator->trans('album.edit.page.title')))
+            ->setPageTitle(Crud::PAGE_INDEX, GenericHelper::mb_ucfirst($this->translator->trans('album.index.page.title')))
+            ->setPageTitle(Crud::PAGE_DETAIL, GenericHelper::mb_ucfirst($this->translator->trans('album.detail.page.title')))
+            ->setPageTitle(Crud::PAGE_NEW, GenericHelper::mb_ucfirst($this->translator->trans('album.new.page.title')))
+            ->setPageTitle(Crud::PAGE_EDIT, GenericHelper::mb_ucfirst($this->translator->trans('album.edit.page.title')))
             ->setDateFormat('d/m/Y')
         ;
     }
@@ -51,7 +54,7 @@ class AlbumCrudController extends AbstractCrudController
         return $actions
             ->update(Crud::PAGE_INDEX, Action::NEW,
                 fn (Action $action) => $action
-                    ->setLabel(ucfirst($this->translator->trans('album.new.action.label')))
+                    ->setLabel(GenericHelper::mb_ucfirst($this->translator->trans('album.new.action.label')))
             )
         ;
     }
@@ -59,9 +62,12 @@ class AlbumCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('title', ucfirst($this->translator->trans('title'))),
-            IntegerField::new('releasedYear', ucfirst($this->translator->trans('releasedYear'))),
-            ChoiceField::new('albumSort', ucfirst($this->translator->trans('type'))),
+            IdField::new('id')->hideOnForm(),
+            TextField::new('title', GenericHelper::mb_ucfirst($this->translator->trans('title'))),
+            IntegerField::new('releasedYear', GenericHelper::mb_ucfirst($this->translator->trans('released.year'))),
+            AssociationField::new('albumSort', GenericHelper::mb_ucfirst($this->translator->trans('type')))->renderAsNativeWidget(),
+            DateTimeField::new('createdAt', GenericHelper::mb_ucfirst($this->translator->trans('created.at')))->hideOnForm(),
+            DateTimeField::new('updatedAt', GenericHelper::mb_ucfirst($this->translator->trans('updated.at')))->hideOnForm(),
         ];
     }
 }

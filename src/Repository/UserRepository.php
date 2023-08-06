@@ -18,12 +18,9 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
-    private EntityManagerInterface $em;
-
-    public function __construct(ManagerRegistry $registry, EntityManagerInterface $em)
+    public function __construct(ManagerRegistry $registry, private readonly EntityManagerInterface $em)
     {
         parent::__construct($registry, User::class);
-        $this->em = $em;
     }
 
     /**
@@ -32,7 +29,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newEncodedPassword): void
     {
         if (!$user instanceof User) {
-            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
+            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', $user::class));
         }
 
         $user->setPassword($newEncodedPassword);
@@ -65,7 +62,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * Retourne un utilisateur à partir de son email
      *
-     * @param string $email
      * @return User
      */
     public function findOneByEmail(string $email): ?User
@@ -81,7 +77,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * Retourne les utilisateurs ayant un rôle donné
      *
-     * @param string $role
      * @return User[] Returns an array of User objects
      */
     public function findByRole(string $role): ?array

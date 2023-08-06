@@ -20,21 +20,21 @@ class Block
     private $id;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    private $duration;
+    private ?int $duration = null;
 
     #[ORM\OneToMany(targetEntity: BlockHasCovers::class, mappedBy: 'block', orphanRemoval: true, fetch: 'EAGER', cascade: ['persist', 'remove'])]
     #[ORM\OrderBy(['coverRankInBlock' => 'ASC'])]
-    private $blockHasCovers;
+    private Collection $blockHasCovers;
 
     #[ORM\OneToMany(targetEntity: BackingTrack::class, mappedBy: 'block', fetch: 'EAGER', cascade: ['persist', 'remove'])]
-    private $backingTracks;
+    private Collection $backingTracks;
 
     #[ORM\OneToMany(targetEntity: SetlistEntry::class, mappedBy: 'block', orphanRemoval: false)]
-    private $setlistEntries;
+    private Collection $setlistEntries;
 
     #[ORM\OneToOne(targetEntity: Ending::class, cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(onDelete: 'SET NULL')]
-    private $ending;
+    private ?\App\Entity\Ending $ending = null;
 
     public function __construct()
     {

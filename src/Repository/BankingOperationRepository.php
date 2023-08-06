@@ -64,9 +64,8 @@ class BankingOperationRepository extends ServiceEntityRepository
 
     /**
      * Retourne le montant total des indemnités kilométriques versées à la date du jour pour une année donnée
-     * @param int $year
      * @return int|null
-    */
+     */
     public function findTotalMileageExpendituresForAGivenYearTillTheCurrentDay(int $year): ?int
     {
         return $this->createQueryBuilder('bo')
@@ -90,10 +89,8 @@ class BankingOperationRepository extends ServiceEntityRepository
 
     /**
      * Retourne le montant total des indemnités kilométriques versées à la date du jour pour un utilisateur et une année donnés
-     * @param int $year
-     * @param User $user
      * @return float|null
-    */
+     */
     // TOOD: à vérifier
     public function findTotalMileageExpendituresForAGivenYearTillTheCurrentDayAndAGivenUser(int $year, User $user): ?float
     {

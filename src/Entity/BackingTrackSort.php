@@ -20,13 +20,13 @@ class BackingTrackSort
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $name;
+    private ?string $name = null;
 
     #[ORM\Column(type: 'json')]
-    private $roles = [];
+    private array $roles = [];
 
     #[ORM\OneToMany(targetEntity: BackingTrack::class, mappedBy: 'backingTrackSort', fetch: 'EAGER')]
-    private $backingTracks;
+    private Collection $backingTracks;
 
     public function __construct()
     {

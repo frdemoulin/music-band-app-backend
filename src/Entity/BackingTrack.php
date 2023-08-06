@@ -19,20 +19,20 @@ class BackingTrack
 
     #[ORM\ManyToOne(targetEntity: BackingTrackSort::class, inversedBy: 'backingTracks', fetch: 'EAGER')]
     #[ORM\JoinColumn(nullable: false)]
-    private $backingTrackSort;
+    private ?\App\Entity\BackingTrackSort $backingTrackSort = null;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $filename;
+    private ?string $filename = null;
 
     #[ORM\Column(type: 'integer')]
-    private $duration;
+    private ?int $duration = null;
 
     #[ORM\ManyToOne(targetEntity: Cover::class, inversedBy: 'backingTracks')]
     #[ORM\JoinColumn(nullable: true)]
-    private $cover;
+    private ?\App\Entity\Cover $cover = null;
 
     #[ORM\ManyToOne(targetEntity: Block::class, inversedBy: 'backingTracks')]
-    private $block;
+    private ?\App\Entity\Block $block = null;
 
     public function getId(): ?int
     {

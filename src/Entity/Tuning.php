@@ -22,10 +22,10 @@ class Tuning
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Assert\NotBlank(message: 'Veuillez renseigner une description')]
-    private $description;
+    private ?string $description = null;
 
     #[ORM\OneToMany(targetEntity: Song::class, mappedBy: 'tuning')]
-    private $songs;
+    private Collection $songs;
 
     public function __construct()
     {

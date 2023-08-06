@@ -22,16 +22,16 @@ class Setlist
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Assert\NotBlank(message: 'Veuillez renseigner une description')]
-    private $description;
+    private ?string $description = null;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'setlistsCreatedBy')]
-    private $createdBy;
+    private ?\App\Entity\User $createdBy = null;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'setlistsLastModifiedBy')]
-    private $lastModifiedBy;
+    private ?\App\Entity\User $lastModifiedBy = null;
 
     #[ORM\OneToMany(targetEntity: SetlistEntry::class, mappedBy: 'setlist', orphanRemoval: true)]
-    private $setlistEntries;
+    private Collection $setlistEntries;
 
     public function __construct()
     {

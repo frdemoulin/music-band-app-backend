@@ -22,20 +22,20 @@ class Album
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Assert\NotBlank(message: 'Veuillez renseigner un titre')]
-    private $title;
+    private ?string $title = null;
 
     #[ORM\Column(type: 'integer')]
     #[Assert\NotBlank(message: 'Veuillez renseigner une année')]
     #[Assert\Positive(message: 'Veuillez renseigner un entier positif')]
-    private $releasedYear;
+    private ?int $releasedYear = null;
 
     #[ORM\OneToMany(targetEntity: Song::class, mappedBy: 'album')]
-    private $songs;
+    private \Doctrine\Common\Collections\Collection|array $songs;
 
     #[ORM\ManyToOne(targetEntity: AlbumSort::class, inversedBy: 'albums')]
     #[ORM\JoinColumn(nullable: false)]
     #[Assert\NotBlank(message: 'Veuillez renseigner un type')]
-    private $albumSort;
+    private ?\App\Entity\AlbumSort $albumSort = null;
 
     public function __construct()
     {

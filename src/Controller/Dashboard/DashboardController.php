@@ -4,7 +4,10 @@ namespace App\Controller\Dashboard;
 
 use App\Entity\Song;
 use App\Entity\Album;
+use App\Entity\Tuning;
+use App\Entity\LogUser;
 use App\Entity\AlbumSort;
+use App\Service\GenericHelper;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -18,19 +21,14 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 
 class DashboardController extends AbstractDashboardController
 {
-    private TranslatorInterface $translator;
-
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(private readonly TranslatorInterface $translator)
     {
-        $this->translator = $translator;
     }
 
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-        return $this->render('admin/dashboard/index.html.twig', [
-            // 'chart' => $chart,
-        ]);
+        return $this->render('admin/dashboard/index.html.twig', []);
     }
 
     public function configureAssets(): Assets
@@ -66,17 +64,25 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle(ucfirst($this->translator->trans('backend-title')))
+            ->setTitle(GenericHelper::mb_ucfirst($this->translator->trans('backend.dashboard.title')))
             ->setFaviconPath('favicon.svg')
             ;
     }
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard(ucfirst($this->translator->trans('home')), 'fa fa-home');
+        // Accueil
+        yield MenuItem::linkToDashboard(GenericHelper::mb_ucfirst($this->translator->trans('home')), 'fa fa-home');
+        // Discographie
         yield MenuItem::section($this->translator->trans('discography'));
-        yield MenuItem::linkToCrud(ucfirst($this->translator->trans('album.type')), 'fa-solid fa-sliders', AlbumSort::class);
-        yield MenuItem::linkToCrud(ucfirst($this->translator->trans('albums')), 'fa-solid fa-compact-disc', Album::class);
-        yield MenuItem::linkToCrud(ucfirst($this->translator->trans('songs')), 'fa-solid fa-music', Song::class);
+        yield MenuItem::linkToCrud(GenericHelper::mb_ucfirst($this->translator->trans('albums')), 'fa-solid fa-compact-disc', Album::class);
+        yield MenuItem::linkToCrud(GenericHelper::mb_ucfirst($this->translator->trans('songs')), 'fa-solid fa-music', Song::class);
+        yield MenuItem::linkToCrud(GenericHelper::mb_ucfirst($this->translator->trans('albums.type')), 'fa-solid fa-sliders', AlbumSort::class);
+        // Paramétrage
+        yield MenuItem::section($this->translator->trans('configuration'));
+        yield MenuItem::linkToCrud(GenericHelper::mb_ucfirst($this->translator->trans('tunings')), 'fa-solid fa-bars-progress', Tuning::class);
+        // Utilisateurs
+        yield MenuItem::section($this->translator->trans('users'));
+        yield MenuItem::linkToCrud(GenericHelper::mb_ucfirst($this->translator->trans('connection.log')), 'fa-solid fa-right-to-bracket', LogUser::class);        
     }
 }

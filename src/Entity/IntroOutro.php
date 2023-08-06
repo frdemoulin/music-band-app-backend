@@ -20,20 +20,20 @@ class IntroOutro
     private $id;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $artistName;
+    private ?string $artistName = null;
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Assert\NotBlank(message: 'Le titre ne peut pas être vide')]
-    private $songTitle;
+    private ?string $songTitle = null;
 
     #[ORM\OneToMany(targetEntity: Cover::class, mappedBy: 'intro')]
-    private $coversIntro;
+    private Collection $coversIntro;
 
     #[ORM\OneToMany(targetEntity: Cover::class, mappedBy: 'outro')]
-    private $coversOutro;
+    private Collection $coversOutro;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    private $duration;
+    private ?int $duration = null;
 
     public function __construct()
     {

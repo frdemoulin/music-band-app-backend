@@ -20,11 +20,11 @@ class Ending
 
     #[ORM\Column(type: 'text')]
     #[Assert\NotBlank(message: 'Veuillez renseigner une description')]
-    private $description;
+    private ?string $description = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Assert\Length(max: 255, maxMessage: 'Le nom de fichier ne doit pas dépasser {{ limit }} caractères')]
-    private $filename;
+    private ?string $filename = null;
 
     public function getId(): ?int
     {

@@ -11,7 +11,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: AlbumSortRepository::class)]
-class AlbumSort
+class AlbumSort implements \Stringable
 {
     use TimestampableEntity;
 
@@ -23,14 +23,18 @@ class AlbumSort
     #[ORM\Column(type: 'string', length: 30)]
     #[Assert\NotBlank(message: 'Veuillez renseigner un type')]
     #[Assert\Length(max: '30', maxMessage: "Le type d'album ne doit pas dépasser {{ limit }} caractères")]
-    private $name;
+    private ?string $name = null;
 
     #[ORM\OneToMany(targetEntity: Album::class, mappedBy: 'albumSort')]
-    private $albums;
+    private Collection $albums;
 
     public function __construct()
     {
         $this->albums = new ArrayCollection();
+    }
+
+    public function __toString(): string{
+        return (string) $this->name;
     }
 
     public function getId(): ?int

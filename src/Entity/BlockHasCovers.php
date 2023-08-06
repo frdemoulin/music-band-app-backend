@@ -20,15 +20,15 @@ class BlockHasCovers
 
     #[ORM\Column(type: 'integer')]
     #[Assert\NotBlank(message: 'Veuillez renseigner un rang')]
-    private $coverRankInBlock;
+    private ?int $coverRankInBlock = null;
 
     #[ORM\ManyToOne(targetEntity: Block::class, inversedBy: 'blockHasCovers', fetch: 'EAGER')]
     #[ORM\JoinColumn(nullable: false)]
-    private $block;
+    private ?\App\Entity\Block $block = null;
 
     #[ORM\ManyToOne(targetEntity: Cover::class, inversedBy: 'blockHasCovers', fetch: 'EAGER')]
     #[ORM\JoinColumn(nullable: false)]
-    private $cover;
+    private ?\App\Entity\Cover $cover = null;
 
     public function getId(): ?int
     {

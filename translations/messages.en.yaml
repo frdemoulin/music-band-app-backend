@@ -1,7 +1,7 @@
 album: album
 albums: albums
 album.add.label: add an album
-backend-title: admin dashboard
+backend.dashboard.title: admin dashboard
 discography: discography
 home: home
 song: song

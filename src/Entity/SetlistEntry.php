@@ -18,27 +18,27 @@ class SetlistEntry
     private $id;
 
     #[ORM\Column(type: 'integer')]
-    private $rankInSetlist;
+    private ?int $rankInSetlist = null;
 
     #[ORM\ManyToOne(targetEntity: Setlist::class, inversedBy: 'setlistEntries')]
     #[ORM\JoinColumn(nullable: false)]
-    private $setlist;
+    private ?\App\Entity\Setlist $setlist = null;
 
     #[ORM\ManyToOne(targetEntity: Block::class, inversedBy: 'setlistEntries')]
-    private $block;
+    private ?\App\Entity\Block $block = null;
 
     #[ORM\ManyToOne(targetEntity: Cover::class, inversedBy: 'setlistEntries')]
-    private $cover;
+    private ?\App\Entity\Cover $cover = null;
 
     #[ORM\ManyToOne(targetEntity: Speech::class)]
-    private $speech;
+    private ?\App\Entity\Speech $speech = null;
 
     #[ORM\ManyToOne(targetEntity: Intermission::class)]
-    private $intermission;
+    private ?\App\Entity\Intermission $intermission = null;
 
     #[ORM\ManyToOne(targetEntity: SetlistEntrySort::class)]
     #[ORM\JoinColumn(nullable: true)]
-    private $sort;
+    private ?\App\Entity\SetlistEntrySort $sort = null;
 
     public function getId(): ?int
     {

@@ -18,17 +18,17 @@ class LogUser
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $sessionId;
+    private ?string $sessionId = null;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'logUsers')]
     #[ORM\JoinColumn(nullable: false)]
-    private $user;
+    private ?\App\Entity\User $user = null;
 
     #[ORM\Column(type: 'datetime_immutable')]
-    private $loginAt;
+    private ?\DateTimeImmutable $loginAt = null;
 
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
-    private $logoutAt;
+    private ?\DateTimeImmutable $logoutAt = null;
 
     public function getId(): ?int
     {
