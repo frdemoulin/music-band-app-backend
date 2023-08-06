@@ -1,0 +1,9 @@
+album: album
+albums: albums
+album.add.label: add an album
+backend.dashboard.title: admin dashboard
+discography: discography
+home: home
+song: song
+songs: songs
+song.add.label: add a song
