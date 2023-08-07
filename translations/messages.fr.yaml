@@ -21,6 +21,13 @@ discography: discographie
 duration: durée
 duration.in.seconds: durée (s)
 home: accueil
+intermission: entracte
+intermissions: entractes
+intermission.new.action.label: créer un entracte
+intermission.new.page.title: créer un entracte
+intermission.detail.page.title: détail de l'entracte
+intermission.index.page.title: liste des entractes
+intermission.edit.page.title: éditer un entracte
 login.at: date de connexion
 logout.at: date de déconnexion
 name: nom

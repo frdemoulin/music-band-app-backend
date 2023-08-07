@@ -2,23 +2,24 @@
 
 namespace App\Controller\Dashboard;
 
-use App\Entity\Album;
-use App\Entity\AlbumSort;
-use App\Entity\LogUser;
 use App\Entity\Song;
+use App\Entity\Album;
 use App\Entity\Speech;
 use App\Entity\Tuning;
+use App\Entity\LogUser;
+use App\Entity\AlbumSort;
+use App\Entity\Intermission;
 use App\Service\GenericHelper;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
-use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -88,8 +89,9 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section($this->translator->trans('configuration'));
         yield MenuItem::linkToCrud(GenericHelper::mb_ucfirst($this->translator->trans('tunings')), 'fa-solid fa-bars-progress', Tuning::class);
         // Setlists
-        yield MenuItem::section($this->translator->trans('setlist'));
+        yield MenuItem::section($this->translator->trans('setlists'));
         yield MenuItem::linkToCrud(GenericHelper::mb_ucfirst($this->translator->trans('speeches')), 'fa-regular fa-comment', Speech::class);
+        yield MenuItem::linkToCrud(GenericHelper::mb_ucfirst($this->translator->trans('intermissions')), 'fa-solid fa-circle-pause', Intermission::class);
         // Utilisateurs
         yield MenuItem::section($this->translator->trans('users'));
         yield MenuItem::linkToCrud(GenericHelper::mb_ucfirst($this->translator->trans('connection.log')), 'fa-solid fa-right-to-bracket', LogUser::class);
