@@ -2,9 +2,9 @@
 
 namespace App\Entity;
 
+use App\Repository\BackingTrackRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\BackingTrackRepository;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 #[ORM\Entity(repositoryClass: BackingTrackRepository::class)]

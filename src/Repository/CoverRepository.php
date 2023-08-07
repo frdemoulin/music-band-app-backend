@@ -39,14 +39,14 @@ class CoverRepository extends ServiceEntityRepository
             if (null !== $value->getIntro()) { // si le cover a une intro
                 $introDurationSeconds = $value->getIntro()->getDuration();
             } else {
-                $introDuration = new DateTime('@0');
+                $introDuration = new \DateTime('@0');
                 $introDurationSeconds = (int) $introDuration->format('U');
             }
 
             if (null !== $value->getOutro()) { // si le cover a une outro
                 $outroDurationSeconds = $value->getOutro()->getDuration();
             } else {
-                $outroDuration = new DateTime('@0');
+                $outroDuration = new \DateTime('@0');
                 $outroDurationSeconds = (int) $outroDuration->format('U');
             }
 

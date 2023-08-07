@@ -4,14 +4,14 @@ namespace App\Controller\Crud;
 
 use App\Entity\LogUser;
 use App\Service\GenericHelper;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
-use Symfony\Contracts\Translation\TranslatorInterface;
-use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LogUserCrudController extends AbstractCrudController
 {
@@ -19,7 +19,7 @@ class LogUserCrudController extends AbstractCrudController
     {
         $this->translator = $translator;
     }
-    
+
     public static function getEntityFqcn(): string
     {
         return LogUser::class;

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a753448f954c37946d5453f0b1c63125",
+    "content-hash": "bd77a3e0b37b8ace2ad005797271ce51",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -3803,16 +3803,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v2.3.2",
+            "version": "v2.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "b31c58d7aaf1a16dd7bd302dfb386f95ae8cda12"
+                "reference": "9c402af768c6c9f8126a9ffa192ecf7c16581e35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/b31c58d7aaf1a16dd7bd302dfb386f95ae8cda12",
-                "reference": "b31c58d7aaf1a16dd7bd302dfb386f95ae8cda12",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/9c402af768c6c9f8126a9ffa192ecf7c16581e35",
+                "reference": "9c402af768c6c9f8126a9ffa192ecf7c16581e35",
                 "shasum": ""
             },
             "require": {
@@ -3848,7 +3848,7 @@
             "description": "Composer plugin for Symfony",
             "support": {
                 "issues": "https://github.com/symfony/flex/issues",
-                "source": "https://github.com/symfony/flex/tree/v2.3.2"
+                "source": "https://github.com/symfony/flex/tree/v2.3.3"
             },
             "funding": [
                 {
@@ -3864,7 +3864,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-08-02T08:51:22+00:00"
+            "time": "2023-08-04T09:02:35+00:00"
         },
         {
             "name": "symfony/form",
@@ -8448,16 +8448,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.26",
+            "version": "1.10.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "5d660cbb7e1b89253a47147ae44044f49832351f"
+                "reference": "a9f44dcea06f59d1363b100bb29f297b311fa640"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/5d660cbb7e1b89253a47147ae44044f49832351f",
-                "reference": "5d660cbb7e1b89253a47147ae44044f49832351f",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/a9f44dcea06f59d1363b100bb29f297b311fa640",
+                "reference": "a9f44dcea06f59d1363b100bb29f297b311fa640",
                 "shasum": ""
             },
             "require": {
@@ -8506,7 +8506,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-07-19T12:44:37+00:00"
+            "time": "2023-08-05T09:57:55+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",

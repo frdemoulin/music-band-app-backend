@@ -8,6 +8,7 @@ use App\Entity\Speech;
 use App\Entity\Tuning;
 use App\Entity\LogUser;
 use App\Entity\AlbumSort;
+use App\Entity\Intermission;
 use App\Service\GenericHelper;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -72,7 +73,7 @@ class DashboardController extends AbstractDashboardController
         return Dashboard::new()
             ->setTitle(GenericHelper::mb_ucfirst($this->translator->trans('backend.dashboard.title')))
             ->setFaviconPath('favicon.svg')
-            ;
+        ;
     }
 
     public function configureMenuItems(): iterable
@@ -88,10 +89,11 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section($this->translator->trans('configuration'));
         yield MenuItem::linkToCrud(GenericHelper::mb_ucfirst($this->translator->trans('tunings')), 'fa-solid fa-bars-progress', Tuning::class);
         // Setlists
-        yield MenuItem::section($this->translator->trans('setlist'));
+        yield MenuItem::section($this->translator->trans('setlists'));
         yield MenuItem::linkToCrud(GenericHelper::mb_ucfirst($this->translator->trans('speeches')), 'fa-regular fa-comment', Speech::class);
+        yield MenuItem::linkToCrud(GenericHelper::mb_ucfirst($this->translator->trans('intermissions')), 'fa-solid fa-circle-pause', Intermission::class);
         // Utilisateurs
         yield MenuItem::section($this->translator->trans('users'));
-        yield MenuItem::linkToCrud(GenericHelper::mb_ucfirst($this->translator->trans('connection.log')), 'fa-solid fa-right-to-bracket', LogUser::class);        
+        yield MenuItem::linkToCrud(GenericHelper::mb_ucfirst($this->translator->trans('connection.log')), 'fa-solid fa-right-to-bracket', LogUser::class);
     }
 }
